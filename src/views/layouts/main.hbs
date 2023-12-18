@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <!-- In case of error, you should display div with class "errorContainer" -->
+    <!-- You can choose to display the first error or all of them (error message/s in your opinion) -->
+
+    <div>
+        {{#each errorMessages}}
+        <div class="errorContainer">
+            <p>{{this}}</p>
+        </div>
+        {{/each}}
+    </div>
+
+    <div class="navigation">
+        <nav>
+            <img src="/images/logo.png">
+            <ul>
+                <!-- Guest users and Logged users -->
+                <li><a href="/">Home</a></li>
+                <li><a href="/courses">All Courses</a></li>
+                {{#unless isAuthenticated}}
+                <!--For guest users-->
+                <li><a href="/users/login">Login</a></li>
+                <li><a href="/users/register">Register</a></li>
+                <!--For loggin users-->
+                {{/unless}}
+                {{#if isAuthenticated}}
+                <li><a href="/courses/profile">Profile</a></li>
+                <li><a href="/courses/create">Create Course Offers</a></li>
+                <li><a href="/users/logout">Logout</a></li>
+                {{/if}}
+            </ul>
+        </nav>
+    </div>
+
+    {{{body}}}
+
+    <footer>Back-End 2023</footer>
+</body>
+
+</html>
