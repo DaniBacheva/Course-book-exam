@@ -74,12 +74,20 @@ body {
 .last-course {
   display: flex;
   justify-content: space-evenly;
+    flex: 0 0 30%;
   margin: 2%;
 }
 
+.latest {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+
+}
+
 .last-course .info {
-  padding: 30px;
-  width: 20%;
+  padding: 50px;
+
   background-color: #F2E5D7;
   color: black;
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
@@ -88,7 +96,7 @@ body {
 .last-course .title {
   font-size: 18px;
   text-align: center;
-  height: 40%;
+  height: 30%;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
