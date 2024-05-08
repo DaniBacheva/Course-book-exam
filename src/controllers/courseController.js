@@ -47,7 +47,7 @@ router.get("/:courseId/details", async (req, res) => {
 
      try {
           const course = await courseManager.getOne(courseId).populate('owner').lean();
-          console.log(course)
+         // console.log(course)
           const { user } = req;
           const { owner } = course;
 
@@ -58,7 +58,7 @@ router.get("/:courseId/details", async (req, res) => {
           console.log({ signUpList: course.signUpList })
           //console.log(signedUpEmails);
 
-          console.log(hasSignedUp);
+          //console.log(hasSignedUp);
           //console.log(isOwner)
           res.render('courses/details', { course, isOwner, hasSignedUp, signedUpEmails });
      }
@@ -96,7 +96,7 @@ router.post("/:courseId/edit", isAuth, async (req, res) => {
           description,
           price
      } = req.body;
-     console.log(req.body);
+     //console.log(req.body);
 
      const loadData = { title, type, certificate, image, description, price, owner: req.user };
 
@@ -143,9 +143,10 @@ router.get("/profile", isAuth, async (req, res) => {
      console.log(user)
 
      const myCourses = await courseManager.getMyCourses(user?._id).lean();
-    // const mySignedUpCourse = await courseManager.getMySignedUpCourses(user?._id).lean();
+     //const mySignedUpCourse = await courseManager.getMySignedUpCourses(user?._id).lean();
 
-     console.log(myCourses)
+     //console.log(myCourses)
+     //console.log(mySignedUpCourse)
 
      res.render("courses/profile", { myCourses });
 })

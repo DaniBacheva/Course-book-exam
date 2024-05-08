@@ -4,7 +4,7 @@ const courseManager =require ('../manager/courseManager')
 router.get("/", async (req,res)=> {
     try {
         const courses = await courseManager.getLatest().lean();
-        console.log(courses);
+        //console.log(courses);
         res.render("home", { courses });
    }
    catch (error) {

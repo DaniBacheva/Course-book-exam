@@ -13,11 +13,11 @@ exports.delete = (courseId) => Course.findByIdAndDelete(courseId);
 exports.signUp = async (courseId, userId) => {
     const course = await this.getOne(courseId);
 
-    console.log({ signUpList: course.signUpList });
-    console.log({ userId });
+    //console.log({ signUpList: course.signUpList });
+    //console.log({ userId });
 
     const isSignedUp = course.signUpList.some((s) => s?.toString() === userId);
-    console.log(isSignedUp);
+    //console.log(isSignedUp);
 
     if (isSignedUp) {
         return;
@@ -34,7 +34,7 @@ exports.getMyCourses = (userId)=>Course.find({owner : userId}).populate('owner')
 
 exports.getMySignedUpCourses = async (userId)=> {
     const courses = await this.getAll().populate('signUpList');
-   // console.log({ signUpList: courses.signUpList });
+    console.log({ signUpList: courses.signUpList });
 
     const myCourses = courses.signUpList.find((s) => s?.toString() === userId);
     console.log(myCourses)
