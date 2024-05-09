@@ -25,7 +25,7 @@ const courseSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, "Description is required"],
-        minLength:[10, "Certificate is too short"],
+        minLength:[10, "Description is too short"],
     },
     price: {
         type: Number,

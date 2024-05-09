@@ -1,15 +1,16 @@
 const router = require("express").Router();
 const userManager = require('../manager/userManager');
-const { extractErrorMsgs } = require('../utils/errorHandler')
+const { extractErrorMsgs } = require('../utils/errorHandler');
+const { isLoogedIn } = require('../middlewares/authMiddleware')
 
-router.get('/register', (req, res) => {
+router.get('/register', isLoogedIn, (req, res) => {
     if(req.user) {
         return res.redirect('/');
     }
     res.render('users/register')
 });
 
-router.post('/register', async (req, res) => {
+router.post('/register', isLoogedIn, async (req, res) => {
     const {username,  email, password, repeatPassword } = req.body;
 
     try {
@@ -23,7 +24,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', isLoogedIn, (req, res) => {
     if(req.user) {
         return res.redirect('/');
     }
@@ -31,7 +32,7 @@ router.get('/login', (req, res) => {
     res.render('users/login')
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login',isLoogedIn,  async (req, res) => {
     const { email, password } = req.body;
 
     try {
