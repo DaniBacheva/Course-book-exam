@@ -1,4 +1,5 @@
 const User = require('../models/User');
+
 const bcrypt = require('bcrypt')
 const jwt = require('../lib/jwt');
 const { SECRET } = require('../constants');
@@ -41,3 +42,10 @@ exports.login = async (email, password) => {
     const token = await getToken(user);
     return token;
 };
+
+
+//exports.mySignedUpCourse = async(userId)=> {
+//    const user = await User.findOne(userId).populate('signUpcourses');
+//    console.log(user)
+
+//}

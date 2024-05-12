@@ -1,7 +1,10 @@
 const router = require("express").Router();
+
 const courseManager = require("../manager/courseManager");
+const userManager = require("../manager/userManager");
+
 const { extractErrorMsgs } = require("../utils/errorHandler");
-const { isAuth } = require('../middlewares/authMiddleware')
+const { isAuth } = require('../middlewares/authMiddleware');
 
 router.get("/", async (req, res) => {
      try {
@@ -47,19 +50,20 @@ router.get("/:courseId/details", async (req, res) => {
 
      try {
           const course = await courseManager.getOne(courseId).populate('owner').lean();
-         // console.log(course)
+          // console.log(course)
           const { user } = req;
           const { owner } = course;
 
           const isOwner = user?._id === owner._id.toString();
+          //console.log(isOwner)
+
           const hasSignedUp = course.signUpList.some((s) => s?.email === user?.email);
+          //console.log(hasSignedUp);
+          console.log({ signUpList: course.signUpList })
 
           const signedUpEmails = course.signUpList?.map((s) => s.email).join(", ");
-          console.log({ signUpList: course.signUpList })
           //console.log(signedUpEmails);
 
-          //console.log(hasSignedUp);
-          //console.log(isOwner)
           res.render('courses/details', { course, isOwner, hasSignedUp, signedUpEmails });
      }
      catch (error) {
@@ -131,8 +135,8 @@ router.get('/:courseId/delete', isAuth, async (req, res) => {
 router.get("/:courseId/sign", isAuth, async (req, res) => {
      const { courseId } = req.params;
      const { _id } = req.user;
-     // console.log(user);
-
+     console.log(_id);
+  
      await courseManager.signUp(courseId, _id)
 
      res.redirect(`/courses/${courseId}/details`)
@@ -140,10 +144,10 @@ router.get("/:courseId/sign", isAuth, async (req, res) => {
 
 router.get("/profile", isAuth, async (req, res) => {
      const { user } = req;
-     console.log(user)
+     //console.log(user)
 
      const myCourses = await courseManager.getMyCourses(user?._id).lean();
-     //const mySignedUpCourse = await courseManager.getMySignedUpCourses(user?._id).lean();
+     //const mySignedUpCourse = await userManager.getMySignedUpCourses(user?._id).lean();
 
      //console.log(myCourses)
      //console.log(mySignedUpCourse)

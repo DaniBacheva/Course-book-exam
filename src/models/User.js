@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
         required: [true, "Password is required"],
         minLength:[4, "Password is too short"],
     },
+  
 });
 
 userSchema.virtual('repeatPassword')

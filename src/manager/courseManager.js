@@ -34,10 +34,10 @@ exports.getMyCourses = (userId)=>Course.find({owner : userId}).populate('owner')
 
 exports.getMySignedUpCourses = async (userId)=> {
     const courses = await this.getAll().populate('signUpList');
-    console.log({ signUpList: courses.signUpList });
+    //console.log({ signUpList: courses.signUpList });
 
-    const myCourses = courses.signUpList.find((s) => s?.toString() === userId);
-    console.log(myCourses)
+    //const myCourses = courses.signUpList.find((s) => s?.toString() === userId);
+    //console.log(myCourses)
 }
 
 

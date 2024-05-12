@@ -20,7 +20,7 @@ const courseSchema = new mongoose.Schema({
     image: {
         type: String,
         required: [true, "Image is required"],
-        match: [/^https?:\/\/.+/, "Provide valid image link"]
+        minLength:[10, "Image URL is too short"]
     },
     description: {
         type: String,
