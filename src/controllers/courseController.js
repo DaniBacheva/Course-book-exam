@@ -1,7 +1,6 @@
 const router = require("express").Router();
 
 const courseManager = require("../manager/courseManager");
-const userManager = require("../manager/userManager");
 
 const { extractErrorMsgs } = require("../utils/errorHandler");
 const { isAuth } = require('../middlewares/authMiddleware');
@@ -143,16 +142,17 @@ router.get("/:courseId/sign", isAuth, async (req, res) => {
 })
 
 router.get("/profile", isAuth, async (req, res) => {
-     const { user } = req;
+     const { _id } = req.user;
      //console.log(user)
 
-     const myCourses = await courseManager.getMyCourses(user?._id).lean();
-     //const mySignedUpCourse = await userManager.getMySignedUpCourses(user?._id).lean();
+     const myCourses = await courseManager.getMyCourses(_id).lean();
+     const mySignedUpCourse = await courseManager.getMySignedUpCourses(_id).lean();
 
-     //console.log(myCourses)
-     //console.log(mySignedUpCourse)
+     console.log(myCourses)
+     console.log("--------------------")
+     console.log(mySignedUpCourse)
 
-     res.render("courses/profile", { myCourses });
+     res.render("courses/profile", { myCourses, mySignedUpCourse });
 })
 
 

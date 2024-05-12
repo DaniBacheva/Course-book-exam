@@ -22,7 +22,6 @@ exports.signUp = async (courseId, userId) => {
     if (isSignedUp) {
         return;
     }
-
     course.signUpList.push(userId);
     return course.save();
 
@@ -30,14 +29,9 @@ exports.signUp = async (courseId, userId) => {
 
 exports.getLatest=()=> Course.find().sort({_id: -1}).limit(3);
 
-exports.getMyCourses = (userId)=>Course.find({owner : userId}).populate('owner');
+exports.getMyCourses = (userId)=>Course.find({owner : userId});
 
-exports.getMySignedUpCourses = async (userId)=> {
-    const courses = await this.getAll().populate('signUpList');
-    //console.log({ signUpList: courses.signUpList });
-
-    //const myCourses = courses.signUpList.find((s) => s?.toString() === userId);
-    //console.log(myCourses)
-}
+exports.getMySignedUpCourses = (userId)=> Course.find({ signUpList: userId})
+   
 
 
